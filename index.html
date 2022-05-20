@@ -9,7 +9,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <!--ESTILOS PARA ASISTENTE-->
-
+<!--UNICAMENTE SI SE DESEA MOSTRAR EL TEXTO EN PANTALLA-->
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,8 +19,6 @@
     <script src="librerias/mindar-image.prod.js"></script>
     <script src="librerias/aframe.min.js"></script>
     <script src="librerias/mindar-image-aframe.prod.js"></script>
-
-    
 
     <script>
       const showInfo = () => {
@@ -213,11 +211,11 @@
 
   <body>
 
- <!--FIN PIE DE PAGINA PARA ASISTENTE-->
+ <!--SECCION PARA EL RECONOCIMIENTO DE VOZ. SIRVE PARA MOSTRAR EL TEXTO EN PANTALLA-->
  <p class="hints"></p>
-       <div>
-        <p class="output"><em><!--...--></em></p>
-        </div>
+      <div>
+	  <p class="output"><em><!--...--></em></p>
+      </div>
     
 
     <!--SECCION DE MESERO CON BOTONES-->
@@ -276,13 +274,13 @@
     </div>
 
 
-    <!--INICIO DE IA-->
+    <!--INICIO DE ASISTENTE CON IA-->
      <!-- INICIALIZO EL SCRIPT QUE CONTIENE TODOS LOS COMANDOS -->
      <script>
       // ESTE CONTADOR ESTA RELACIONADO CON LA LINEA DE CODIGO 217 Y 225
-          window.contador=0;
+          //window.contador=0;
       //  ESTE CONTADOR ESTA RELACIONADO CON LA LINEA  282 Y 290
-          window.contadorcubogrande=0;
+          //window.contadorcubogrande=0;
       
       /* CREMOS LAS VARIABLES QUE NOS PERMITEN UTILIZAR EL SPEECHRECOGNITION */
             var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
@@ -320,20 +318,21 @@
       recognition.maxAlternatives = 1;
       
       /* VARIABLE RELACIONADA A LAS LINEAS 405 A 415*/
-      var diagnostic = document.querySelector('.output');
+      //var diagnostic = document.querySelector('.output');
       
       /* VARIABLE REALACIONADA CON LA LINEA DE CODIGO 13 y 40*/
-      var hints = document.querySelector('.hints');
+      //var hints = document.querySelector('.hints');
       
-      var vozHTML= '';
+      //var vozHTML= '';
       /*arreglovoz.forEach(function(v, i, a){
         console.log(v, i);
         
       });*/
       
+      //INICIA MICROFONO  
       document.onkeydown = function() {
        recognition.start();
-       console.log('Estoy listo para escuchar.');
+       //console.log('Estoy listo para escuchar.'); En dado caso que se mostrara texto en pantalla
       
       }
     
