@@ -1,0 +1,640 @@
+<html>
+  
+<!-- INICIALIZAMOS LOS SCRIPTS A UTILIZAR -->
+<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<!-- FINALIZAN LOS SCRIPTS -->
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<!--ESTILOS PARA ASISTENTE-->
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+    <script src="librerias/mindar-image.prod.js"></script>
+    <script src="librerias/aframe.min.js"></script>
+    <script src="librerias/mindar-image-aframe.prod.js"></script>
+
+    
+
+    <script>
+      const showInfo = () => {
+        let y = 0;
+        const profileButton = document.querySelector("#profile-button"); /*BOTON DE INFORMACION DEL ESTABLECIMIENTO*/
+        const webButton = document.querySelector("#web-button"); /*BOTON DE MENU*/
+        const emailButton = document.querySelector("#email-button"); /*BOTON DE QUEJAS Y SUGERENCIAS*/
+        const locationButton = document.querySelector("#location-button"); /*BOTON DE HABLAR CON MESERO*/
+        const text = document.querySelector("#text");
+
+        webButton.setAttribute("visible", true);
+        setTimeout(() => {
+          locationButton.setAttribute("visible", true);       
+        }, 300);
+        setTimeout(() => {
+          profileButton.setAttribute("visible", true);
+        }, 600);
+        setTimeout(() => {
+          emailButton.setAttribute("visible", true);
+
+        }, 900);
+
+        let currentTab = '';
+        webButton.addEventListener('click', function (evt) {
+          text.setAttribute("value", "Bienvenidos a _________");
+          currentTab = 'web';            
+          window.location.href="opciones_menu.php";  /*ABRE EL ARCHIVO CON LISTA DE PRODUCTOS*/
+
+        });
+        emailButton.addEventListener('click', function (evt) {
+          text.setAttribute("value", "Ver opciones de comida");
+          currentTab = 'email';
+        });
+        profileButton.addEventListener('click', function (evt) {
+          text.setAttribute("value", "Hola hoy sere su mesero virtual");
+          currentTab = 'profile';
+        });
+        locationButton.addEventListener('click', function (evt) {
+          console.log("loc");
+          text.setAttribute("value", "Nancy Velasco Santiago");
+          currentTab = 'location';
+        });
+
+        
+      }
+
+      const showPortfolio = (done) => {
+        const portfolio = document.querySelector("#portfolio-panel")
+        const paintandquestPreviewButton = document.querySelector("#paintandquest-preview-button");
+
+        let y = 0;
+        let currentItem = 0;
+
+        portfolio.setAttribute("visible", true);
+
+        const showPortfolioItem = (item) => {
+          for (let i = 0; i <= 2; i++) {
+            document.querySelector("#portfolio-item" + i).setAttribute("visible", i === item);
+          }
+        }
+        const id = setInterval(() => {
+          y += 0.008;
+          if (y >= 0.6) {
+            clearInterval(id);
+    
+
+            setTimeout(() => {
+              done();
+            }, 500);
+          }
+          portfolio.setAttribute("position", "0 " + y + " -0.01");
+        }, 10);
+      }
+
+      const showAvatar = (onDone) => {
+        const avatar = document.querySelector("#avatar");
+        let z = -0.3;
+        const id = setInterval(() => {
+          z += 0.008;
+          if (z >= 0.3) {
+            clearInterval(id);
+            onDone();
+          }
+          avatar.setAttribute("position", "0 -0.25 " + z);
+        }, 10);
+      }
+
+      AFRAME.registerComponent('mytarget', {
+        init: function () {
+          this.el.addEventListener('targetFound', event => {
+            console.log("target found");
+            showAvatar(() => {
+              setTimeout(() => {
+                showPortfolio(() => {
+                  setTimeout(() => {
+                    showInfo();
+                  }, 300);
+                });
+              }, 300);
+            });
+          });
+          this.el.addEventListener('targetLost', event => {
+            console.log("target found");
+          });
+          //this.el.emit('targetFound');
+        }
+      });
+    </script>
+
+      
+    <style>
+      body {
+        margin: 0;
+      }
+      .example-container {
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+     
+      #example-scanning-overlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: transparent;
+	z-index: 2;
+      }
+      @media (min-aspect-ratio: 1/1) {
+	#example-scanning-overlay .inner {
+	  width: 50vh;
+	  height: 50vh;
+	}
+      }
+      @media (max-aspect-ratio: 1/1) {
+	#example-scanning-overlay .inner {
+	  width: 80vw;
+	  height: 80vw;
+	}
+      }
+
+      #example-scanning-overlay .inner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	background:
+	  linear-gradient(to right, white 10px, transparent 10px) 0 0,
+	  linear-gradient(to right, white 10px, transparent 10px) 0 100%,
+	  linear-gradient(to left, white 10px, transparent 10px) 100% 0,
+	  linear-gradient(to left, white 10px, transparent 10px) 100% 100%,
+	  linear-gradient(to bottom, white 10px, transparent 10px) 0 0,
+	  linear-gradient(to bottom, white 10px, transparent 10px) 100% 0,
+	  linear-gradient(to top, white 10px, transparent 10px) 0 100%,
+	  linear-gradient(to top, white 10px, transparent 10px) 100% 100%;
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+      }
+
+      #example-scanning-overlay.hidden {
+	display: none;
+      }
+
+      #example-scanning-overlay img {
+	opacity: 0.6;
+	width: 90%;
+	align-self: center;
+      }
+
+      #example-scanning-overlay .inner .scanline {
+	position: absolute;
+	width: 100%;
+	height: 10px;
+	background: white;
+	animation: move 2s linear infinite;
+      }
+      @keyframes move {
+	0%, 100% { top: 0% }
+	50% { top: calc(100% - 10px) }
+      }
+    </style>
+  </head>
+
+
+  <body>
+
+ <!--FIN PIE DE PAGINA PARA ASISTENTE-->
+ <p class="hints"></p>
+       <div>
+        <p class="output"><em><!--...--></em></p>
+        </div>
+    
+
+    <!--SECCION DE MESERO CON BOTONES-->
+    <div class="example-container">
+      <div id="example-scanning-overlay" class="hidden">
+	<div class="inner">
+	  <img src="recursos/tarjetas/mesero.png"/>
+	  <div class="scanline"></div>
+	</div>
+      </div>
+
+      <a-scene mindar-image="imageTargetSrc: recursos/tarjetas/mesero.mind;" 
+      color-space="sRGB" renderer="colorManagement: true, 
+      physicallyCorrectLights" vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false"  >  
+        <a-assets>
+          <img id="card" src="recursos/tarjetas/mesero.png" />
+          <img id="icon-web" src="recursos/icons/menu.png" />
+          <img id="icon-location" src="recursos/icons/habla.png" />
+          <img id="icon-profile" src="recursos/icons/informacion.png" />
+          <img id="icon-email" src="recursos/icons/email.png" />
+          <a-asset-item id="avatarModel" src="recursos/objetos/mesero.glb"></a-asset-item>
+        </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false" 
+        cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable">
+        </a-camera>
+
+        <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
+
+          <a-gltf-model id="avatar" rotation="0 0 0" position="0 0 0.1" scale="0.5 0.5 0.5" src="#avatarModel" animation-mixer></a-gltf-model>
+
+          <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+
+          <a-entity visible=false id="portfolio-panel" position="0 0 -0.01">
+            <a-text value="BIENVENIDOS" color="red" align="center" width="2" position="0 0.4 0"></a-text>
+                 </a-entity>
+
+          <a-image visible=false id="web-button" class="clickable" src="#icon-web" alpha-test="0.5" position="-0.14 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+          ></a-image>
+          <a-image visible=false id="location-button" class="clickable" src="#icon-location" position="0.42 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+          ></a-image>
+          <a-image visible=false id="profile-button" class="clickable" src="#icon-profile" position="-0.42 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+          ></a-image>
+          <a-image visible=false id="email-button" class="clickable" src="#icon-email"  position="0.14 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+          ></a-image>
+
+          <a-text id="text" class="clickable" value="" color="black" align="center" width="2" position="0 -1 0" geometry="primitive:plane; height: 0.1; width: 2;" material="opacity: 0.5"></a-text>
+        </a-entity>
+
+      </a-scene>
+    </div>
+
+
+    <!--INICIO DE IA-->
+     <!-- INICIALIZO EL SCRIPT QUE CONTIENE TODOS LOS COMANDOS -->
+     <script>
+      // ESTE CONTADOR ESTA RELACIONADO CON LA LINEA DE CODIGO 217 Y 225
+          window.contador=0;
+      //  ESTE CONTADOR ESTA RELACIONADO CON LA LINEA  282 Y 290
+          window.contadorcubogrande=0;
+      
+      /* CREMOS LAS VARIABLES QUE NOS PERMITEN UTILIZAR EL SPEECHRECOGNITION */
+            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+            var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+            var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+      
+      /* CREAMOS UN ARREGLO LLAMADO arreglovoz EL CUAL CONTRENDRA TODOS LOS COMANDOS QUE QUERAMOS AGREGAR Y QUE EL SISTEMA RECONOCERA */
+      var arreglovoz = [  'Hola food exe',
+                      'Que tal food exe',
+                      'Buenas tardes food exe',
+                      'Food exe hola',
+                      'gracias',
+                      'Gracias food exe',
+                      'Gracias Sebastián',
+                      'no Eso es todo por ahora',
+                      'Food exe eso es todo por ahora',
+                      'me gustaría información sobre la hamburguesa',
+                      'Disculpa Sebastián me puedes ayudar',
+                      'Sebastián tienen ofertas',
+                      'Disculpa food exe, me puedes ayudar'];
+      
+      
+      /* INICIALIAMOS LA GRAMATICA Y EL SPECHRECOGNITION */
+      var grammar = '#JSGF V1.0; grammar arreglovoz; public <arreglovoz> = ' + arreglovoz.join(' | ') + ' ;'
+      
+      var recognition = new SpeechRecognition();
+      var speechRecognitionList = new SpeechGrammarList();
+      speechRecognitionList.addFromString(grammar, 1);
+      recognition.grammars = speechRecognitionList;
+      recognition.continuous = false; 
+      /* IDIOMA A SELECCIONAR EN ESTE CASO ESTA EN ESPAÑOL PERO SE PUEDEN SELECCIONAR DE LA LISTA QUE GOOGLE TENGA*/
+      recognition.lang = 'es-MX';
+      /* FINALIZA LA SELECCION DE IDIOMA*/
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      
+      /* VARIABLE RELACIONADA A LAS LINEAS 405 A 415*/
+      var diagnostic = document.querySelector('.output');
+      
+      /* VARIABLE REALACIONADA CON LA LINEA DE CODIGO 13 y 40*/
+      var hints = document.querySelector('.hints');
+      
+      var vozHTML= '';
+      /*arreglovoz.forEach(function(v, i, a){
+        console.log(v, i);
+        
+      });*/
+      
+      document.onkeydown = function() {
+       recognition.start();
+       console.log('Estoy listo para escuchar.');
+      
+      }
+    
+      recognition.onresult = function(event) {
+        // La propiedad de resultados SpeechRecognitionEvent devuelve un objeto SpeechRecognitionResultList
+        // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+      
+        // El objeto SpeechRecognitionResultList contiene objetos SpeechRecognitionResult.
+        // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+      
+        // Tiene un captador para que se pueda acceder como una matriz.
+        // It has a getter so it can be accessed like an array.
+      
+        // El primer [0] devuelve el SpeechRecognitionResult en la última posición.
+        // The first [0] returns the SpeechRecognitionResult at the last position.
+      
+        // Cada objeto SpeechRecognitionResult contiene objetos SpeechRecognitionAlternative que contienen resultados individuales.
+        // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+      
+        // Estos también tienen captadores para que se pueda acceder a ellos como matrices.
+        // These also have getters so they can be accessed like arrays.
+      
+        // El segundo [0] devuelve SpeechRecognitionAlternative en la posición 0.
+        // The second [0] returns the SpeechRecognitionAlternative at position 0.
+      
+        // Luego devolvemos la propiedad de transcripción del objeto SpeechRecognitionAlternative
+        // We then return the transcript property of the SpeechRecognitionAlternative object
+        var voz = event.results[0][0].transcript;
+
+        //ESTA LINEA PERMITE MOSTRAR LA FRASE DICHA EN PANTALLA EN FORMA DE TEXTO
+        //diagnostic.textContent = 'Dijo: ' + voz + '.';
+       
+      
+        //bg = voz;
+        //REVISAR VARIABLE
+        //var bg = document.querySelector('caja');
+      
+        
+        //VISUALIZO EN CONSOLA
+        //console.log(bg);
+        //console.log(voz);
+      
+      
+      // INTERACCIONES INICIALES 
+        if(voz === 'Hola food exe'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('Hola, mi nombre es Sebastian. Seré su mesero virtual. Pueden elegir cualquiera de las opciones que aparecen.')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+        }
+
+        if(voz === 'Disculpa Sebastián me puedes ayudar'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('Puedo darle detalles de algunos alimentos. ¿Sobre que producto le gustaria saber?')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+      }
+
+      if(voz === 'me gustaría información sobre la hamburguesa'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('Claro, los datos son con base en una porcion que aporta cuatroscientos kilo calorias, veintinueve gramos de proteina, treinta y cuatro gramos de carbohidratos, algunos miligramos de sodio y fibra, y catorce gramos de grasa saturada, todo gracias a la carne de res magra molida, pimienta, pollos integrales, hojas de lechuga, jitomate, cebolla y queso amarillo. Es realmente deliciosa, recuerde moderar su consumo')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+      }
+
+      if(voz === 'Sebastián tienen ofertas'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('Hoy tenemos grandes ofertas en food exe. De click en ver ofertas para mayor informacion')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+      }
+      
+        if(voz === 'Gracias Sebastian'){
+          //console.log("Estan dando las gracias");
+          let utterance = new SpeechSynthesisUtterance('de nada, quiere que le ayude con algo mas?')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)   
+      }
+      
+        if(voz === 'no Eso es todo por ahora'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('esta bien, siempre es un placer poder ayudarle. Ahora iré a ayudarle a otros comensales, que tenga buen dia.')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+      }
+
+      if(voz === 'gracias'){
+          //console.log("Hola, estas saludando!");
+          let utterance = new SpeechSynthesisUtterance('hasta luego')
+          utterance.lang = 'es-MX'
+          speechSynthesis.speak(utterance)     
+      }
+    
+      // FINALIZAN LAS INTERACCIONES INICIALES
+      
+      /*
+      // COMENZAN LOS IF DE REALIDAD AUMENTADA
+      // IF NUMERO 1
+        if(voz === 'realidad quiero el cubo en azul'){
+        console.log("Estas queriendo el cubo en azul");
+        // CONTADOR PARA VER LAS REPETICIONES DE LOS COMANDOS, EN ESTE CASO HAY DOS CONTADOR.
+        if(contador ==0){
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'blue');
+            let utterance = new SpeechSynthesisUtterance('El azul es tu color favorito, me gusta ese color tambien, ahora el cubo es azul. Quieres algo mas?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)    
+          }
+          
+          if (contador ==1){
+            var el = document.querySelector('#caja');
+            el.setAttribute("color", 'blue');
+            let utterance = new SpeechSynthesisUtterance('y aqui vamos otra vez con el color azul. Quieres algo mas azul?. una esfera azul, por ejemplo?. Quieres algo mas?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+            contador=0;
+          }
+          contador++;
+          console.log(contador);
+      }
+      
+      
+      // IF NUMERO 2
+      if(voz=== 'realidad quiero el cubo en amarillo'){
+        console.log("Estas queriendo el cubo en amarillo");
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'yellow');
+      
+            let utterance = new SpeechSynthesisUtterance(' ok Belem, ahora el cubo es de color amarillo. Quieres algo mas?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+      
+      // IF NUMERO 3
+      if(voz === 'realidad quiero el cubo en negro'){
+        console.log("Estas queriendo el cubo en negro");
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'black');
+      
+            let utterance = new SpeechSynthesisUtterance('negro como la noche. Es mi segundo color preferido carlos. Lo sabias?. o solo me utilizas para cambiar de colores estos putos cubos?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+      
+      // IF NUMERO 4
+      if(voz === 'realidad quiero el cubo en rojo'){
+        console.log("Estas queriendo el cubo en rojo");
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'red');
+      
+            let utterance = new SpeechSynthesisUtterance('Ya esta! El cubo ahora es rojo')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+      
+      // IF NUMERO 5
+      if(voz === 'realidad quiero el cubo en verde'){
+        console.log("Estas queriendo el cubo en verde");
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'green');
+      
+            let utterance = new SpeechSynthesisUtterance('Perfecto Belem. Ahora el cubo es verde')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+       
+      // IF NUMERO 6
+      if(voz === 'realidad quiero el cubo más grande'){
+        console.log("Estas queriendo hacer el cubo mas grande");
+        // CONTADOR PARA LAS ITERACCIONES DEL CUBO MAS GRANDE. 
+        if(contadorcubogrande ==0){
+        var el = document.querySelector('#caja');
+            el.setAttribute("scale", '2 2 2');
+      
+            let utterance = new SpeechSynthesisUtterance('Ahora el cubo es mas grande pero no me pidas hacerlo mas grande por que no puedo. ok?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+          }
+      
+          if(contadorcubogrande ==1){
+            let utterance = new SpeechSynthesisUtterance('Belem por favor. Ya te dije que no puedo hacer el cubo mas grande?')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+            contadorcubogrande=0;
+          }
+          contadorcubogrande++;
+      }
+       
+      // IF NUMERO 7 
+      if(voz === 'realidad quiero el cubo más pequeño'){
+        console.log("Estas queriendo el cubo mas pequeño");
+        var el = document.querySelector('#caja');
+            el.setAttribute("scale", '1 1 1');
+      
+            let utterance = new SpeechSynthesisUtterance('y de vuelta a la normalidad. Ahora el cubo es pequeño otra vez.')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+       
+      // IF NUMERO 8
+      if(voz === 'realidad quiero el cubo transparente'){
+        console.log("Estas queriendo el cubo transparente");
+        var el = document.querySelector('#caja');
+            el.setAttribute("opacity", '0.4');
+      
+            let utterance = new SpeechSynthesisUtterance('Belem. Como si fuera magia. ahora el cubo es transparente')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+      
+      // IF NUMERO 9  
+      if(voz === 'realidad regresa al cubo'){
+        console.log("Estas queriendo regresar al cubo");
+        var el = document.querySelector('#caja');
+            el.setAttribute("color", 'white');
+            el.setAttribute("opacity", '1');
+            el.setAttribute("scale", '1 1 1');
+            
+      
+            var es = document.querySelector('#entityID1').removeAttribute('obj-model');
+            var es = document.querySelector('#entityID2').removeAttribute('gltf-model');
+            var el = document.querySelector('#caja').removeAttribute('animation');
+      
+            let utterance = new SpeechSynthesisUtterance('ah! que pesar, realmente estaba disfrutando de los modelos 3D. pero volvamos a los cubos entonces')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+           
+      }
+      
+      // IF NUMERO 10
+      if(voz === 'realidad animación'){
+        console.log("Estas queriendo la animacion");
+        var el = document.querySelector('#caja');
+            el.setAttribute("animation", 'property: rotation; to: 0 360 0; loop: true; dur: 10000');
+            el.setAttribute("animation__dos", 'property: components.material.material.color; type: color; to: blue; dur: 5000');
+           
+            
+            el.setAttribute("opacity", '1');
+            el.setAttribute("scale", '1 1 1');
+      
+            var es = document.querySelector('#entityID1').removeAttribute('obj-model');
+            var es = document.querySelector('#entityID2').removeAttribute('gltf-model');
+      
+      
+            let utterance = new SpeechSynthesisUtterance('Esta animación me aburre. Además me hace sentir un poco mareada, por favor dime otro comando')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+           
+      }
+      
+      // IF NUMERO 11
+      if(voz === 'realidad muestra un modelo 3D'){
+        console.log("Estas mostrando un modelo 3D");
+        var es = document.querySelector('#entityID1');
+            es.setAttribute("obj-model", 'obj:url(samus/DolBarriersuit.obj);mtl:url(samus/DolBarriersuit.mtl)');
+            es.setAttribute("scale",'.10 .10 .10');
+                         
+      
+            var el = document.querySelector('#caja');
+                el.setAttribute("opacity", '0.0');        
+                          
+            var es = document.querySelector('#entityID2').removeAttribute('gltf-model');
+            
+            let utterance = new SpeechSynthesisUtterance('ya era hora!. ya me estaba aburriendo de los cubos. Aqui esta tu modelo 3D')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }
+      
+      // IF NUMERO 12
+      if(voz === 'realidad muestra un segundo modelo 3D'){
+        console.log("Estas mostrando un segundo modelo 3D");
+        var es = document.querySelector('#entityID2');
+            es.setAttribute("gltf-model", 'url(llama/scene.gltf)');
+                          
+            var el = document.querySelector('#caja');
+                el.setAttribute("opacity", '0.0');       
+                          
+            var es = document.querySelector('#entityID1').removeAttribute('obj-model');
+      
+            let utterance = new SpeechSynthesisUtterance('Belem, mira. Mira, si me preguntas no se cual modelo 3D me gusta mas.')
+            utterance.lang = 'es-MX'
+            speechSynthesis.speak(utterance)
+      }*/
+      
+      //console.log('Confidence: ' + event.results[0][0].confidence);
+      }
+      
+      
+      recognition.onspeechend = function() {
+        recognition.stop();
+      }
+      
+      recognition.onnomatch = function(event) {
+        diagnostic.textContent = "No puedo escucharle claramente, por favor repitame.";
+      }
+      
+      recognition.onerror = function(event) {
+        diagnostic.textContent = 'Ocurrio un error al escucharle: ' + event.error;
+      }
+       </script>
+       <!--FIN DE IA-->
+      
+        </body>
+      </html>
