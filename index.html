@@ -277,12 +277,7 @@
     <!--INICIO DE ASISTENTE CON IA-->
      <!-- INICIALIZO EL SCRIPT QUE CONTIENE TODOS LOS COMANDOS -->
      <script>
-      // ESTE CONTADOR ESTA RELACIONADO CON LA LINEA DE CODIGO 217 Y 225
-          //window.contador=0;
-      //  ESTE CONTADOR ESTA RELACIONADO CON LA LINEA  282 Y 290
-          //window.contadorcubogrande=0;
-      
-      /* CREMOS LAS VARIABLES QUE NOS PERMITEN UTILIZAR EL SPEECHRECOGNITION */
+      /* SE CREAN LAS VARIABLES QUE PERMITEN UTILIZAR EL SPEECHRECOGNITION */
             var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
             var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
             var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
@@ -316,18 +311,6 @@
       /* FINALIZA LA SELECCION DE IDIOMA*/
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
-      
-      /* VARIABLE RELACIONADA A LAS LINEAS 405 A 415*/
-      //var diagnostic = document.querySelector('.output');
-      
-      /* VARIABLE REALACIONADA CON LA LINEA DE CODIGO 13 y 40*/
-      //var hints = document.querySelector('.hints');
-      
-      //var vozHTML= '';
-      /*arreglovoz.forEach(function(v, i, a){
-        console.log(v, i);
-        
-      });*/
       
       //INICIA MICROFONO  
       document.onkeydown = function() {
@@ -364,19 +347,8 @@
 
         //ESTA LINEA PERMITE MOSTRAR LA FRASE DICHA EN PANTALLA EN FORMA DE TEXTO
         //diagnostic.textContent = 'Dijo: ' + voz + '.';
-       
       
-        //bg = voz;
-        //REVISAR VARIABLE
-        //var bg = document.querySelector('caja');
-      
-        
-        //VISUALIZO EN CONSOLA
-        //console.log(bg);
-        //console.log(voz);
-      
-      
-      // INTERACCIONES INICIALES 
+      // INTERACCIONES ENTRE MESERO Y COMENSAL
         if(voz === 'Hola food exe'){
           //console.log("Hola, estas saludando!");
           let utterance = new SpeechSynthesisUtterance('Hola, mi nombre es Sebastian. Seré su mesero virtual. Pueden elegir cualquiera de las opciones que aparecen.')
