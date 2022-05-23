@@ -1,0 +1,90 @@
+<html>  
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <!--ARCHIVO CSS PARA apariencia-->
+    <link rel="stylesheet" type="text/css" href="../librerias/style.css" media="screen" />
+    <!--LIBRERIAS PARA USO DE AFRAME CON RA-->
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+
+  <script >
+//SCRIPT PARA INCLUIR BOTONES 
+  const showInfo = () => {
+    let y = 0;
+    const profileButton = document.querySelector("#informacion-button"); /*BOTON DE INFORMACION*/
+    const locationButton = document.querySelector("#ingredientes-button"); /*BOTON DE INGREDIENTES*/
+    var nutrimental=document.getElementById("inf-nutrimental2"); /*OBTIENE ELEMENTO BOTON QUE MUESTRA INF NUTRIMENTAL*/
+    var ingredientes=document.getElementById("inf-ingredientes2"); /*OBTIENE ELEMENTO BOTON INGREDIENTES*/
+    let currentTab = '';
+
+    profileButton.addEventListener('click', function (evt) { /*MUESTRA INFORMACION NUTRIMENTAL*/
+      currentTab = 'profile';
+      nutrimental.setAttribute("visible",true);
+      ingredientes.setAttribute("visible",false);
+    });
+
+    locationButton.addEventListener('click', function (evt) {/*MUESTRA INGREDIENTES*/
+      currentTab = 'location';
+      nutrimental.setAttribute("visible",false);
+      ingredientes.setAttribute("visible",true);
+    });        
+  }
+  AFRAME.registerComponent('mytarget', {
+    init: function () {
+      this.el.addEventListener('targetFound', event => { console.log("TARJETA ENCONTRADA"); showInfo(); /*MUESTRA EVENTOS RELACIONADOS A CONSTANTE SHOWINFO*/ });
+      this.el.addEventListener('targetLost', event => { console.log("NO SE HA ENCONTRADO LA TARJETA"); });
+    }
+  });
+  </script>
+
+  <body>
+
+    <!--SECCION CON OBJETO-->
+    <div class="example-container">
+      <div id="example-scanning-overlay" class="hidden">
+	      <div class="inner">
+          <img src="../recursos/objetos/trans.png"/> <!--Incluye fondo detras de objeto a mostrar-->
+        </div>
+      </div>
+      <!--Asigna la tarjeta esperada a leer y propiedades de escena-->
+      <a-scene mindar-image="imageTargetSrc: ../recursos/tarjetas/sandwich.mind;" 
+      color-space="sRGB" renderer="colorManagement: true, 
+      physicallyCorrectLights" vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false" autorotation  >  
+        <a-assets>
+          <img id="card" src="../recursos/tarjetas/trans.png" /><!--Para que se vea el fondo-->
+          <img id="icon-ingredientes" src="../recursos/icons/ingredientes.png" /><!--Icono de ingredientes-->
+          <img id="icon-informacion" src="../recursos/icons/informacion.png" /><!--Icono de informacion nutrimental-->
+          <img id="inf-nutrimental" src="../recursos/informacion/sandwich.PNG" /><!--informacion nutrimental-->
+          <img id="inf-ingredientes" src="../recursos/ingredientes/sandwich.PNG" /><!--ingredientes-->
+          <a-asset-item id="avatarModel" src="../recursos/objetos/sandwich.glb"></a-asset-item><!--Espacio para mostrar objeto 3D-->
+        </a-assets>
+      <!--Propiedades de camara-->
+        <a-camera position="0 0 0" look-controls="enabled: false" 
+        cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable">
+        </a-camera>
+        <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
+          <a-gltf-model id="avatar" rotation="0 0 0" position="0 0 0.1" scale="0.5 0.5 0.5" src="#avatarModel" animation-mixer></a-gltf-model>
+          <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+
+          <a-entity visible=false id="portfolio-panel" position="0 0 -0.01">   </a-entity>
+      <!-- Muestra botones de: INGREDIENTES       INFORMACION NUTRIMENTAL-->
+          <a-image visible=true id="ingredientes-button" class="clickable" src="#icon-ingredientes" position="0.42 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate" 
+            ></a-image>
+          <a-image visible=true id="informacion-button" class="clickable" src="#icon-informacion" position="-0.42 -0.5 0" height="0.15" width="0.15"
+            animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"  
+            ></a-image>
+      <!--Secciones para informacion nutrimental e ingredientes-->   
+            <a-image visible=false id="inf-nutrimental2" class="" src="#inf-nutrimental" position="-1.2 -0.1 0" ></a-image>
+            <a-image visible=false id="inf-ingredientes2" class="" src="#inf-ingredientes" position="1.2 -0.1 0" ></a-image>
+        </a-entity>
+      </a-scene>
+    </div>
+  </body>
+  </html>
