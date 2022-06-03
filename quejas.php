@@ -22,7 +22,7 @@ if(isset($_POST['enviar'])){
          
     </head>
     <body>
-         <form id="formulario" class="formulario" action="" method="post">
+         <form id="formulario" class="formulario" action="mesero.html" method="post">
         <h1> QUEJAS O SUGERENCIAS </h1>
         <div class="box-input">
             <input type="text" name="nombre" id="nombre" class="nombre" placeholder="Escriba su Nombre" required>                     
