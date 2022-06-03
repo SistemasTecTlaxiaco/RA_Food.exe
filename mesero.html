@@ -43,13 +43,12 @@
 
         let currentTab = '';
         webButton.addEventListener('click', function (evt) {
-          text.setAttribute("value", "Bienvenidos a _________");
           currentTab = 'web';            
           window.location.href="opciones_menu.php";  /*ABRE EL ARCHIVO CON LISTA DE PRODUCTOS*/
 
         });
         emailButton.addEventListener('click', function (evt) {
-          text.setAttribute("value", "Ver opciones de comida");
+	  window.location.href="quejas.php";  /*ABRE EL ARCHIVO PARA QUEJAS Y SUGERENCIAS*/
           currentTab = 'email';
         });
         profileButton.addEventListener('click', function (evt) {
