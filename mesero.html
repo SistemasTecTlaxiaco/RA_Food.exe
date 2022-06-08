@@ -26,7 +26,7 @@
         const profileButton = document.querySelector("#profile-button"); /*BOTON DE INFORMACION DEL ESTABLECIMIENTO*/
         const webButton = document.querySelector("#web-button"); /*BOTON DE MENU*/
         const emailButton = document.querySelector("#email-button"); /*BOTON DE QUEJAS Y SUGERENCIAS*/
-        const locationButton = document.querySelector("#location-button"); /*BOTON DE HABLAR CON MESERO*/
+       <!-- const locationButton = document.querySelector("#location-button"); /*BOTON DE HABLAR CON MESERO*/ -->
         const text = document.querySelector("#text");
 
         webButton.setAttribute("visible", true);
@@ -56,11 +56,11 @@
           text.setAttribute("value", "Hola hoy sere su mesero virtual");
           currentTab = 'profile';
         });
-        locationButton.addEventListener('click', function (evt) {
+         locationButton.addEventListener('click', function (evt) {
           console.log("loc");
           text.setAttribute("value", "Nancy Velasco Santiago");
           currentTab = 'location';
-        });
+        }); 
 
         
       }
@@ -234,7 +234,7 @@
         <a-assets>
           <img id="card" src="recursos/tarjetas/mesero.png" />
           <img id="icon-web" src="recursos/icons/menu.png" />
-          <img id="icon-location" src="recursos/icons/habla.png" />
+          <!-- <img id="icon-location" src="recursos/icons/habla.png" /> -->
           <img id="icon-profile" src="recursos/icons/informacion.png" />
           <img id="icon-email" src="recursos/icons/email.png" />
           <a-asset-item id="avatarModel" src="recursos/objetos/mesero.glb"></a-asset-item>
@@ -257,9 +257,9 @@
           <a-image visible=false id="web-button" class="clickable" src="#icon-web" alpha-test="0.5" position="-0.14 -0.5 0" height="0.15" width="0.15"
             animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
           ></a-image>
-          <a-image visible=false id="location-button" class="clickable" src="#icon-location" position="0.42 -0.5 0" height="0.15" width="0.15"
+         <!-- <a-image visible=false id="location-button" class="clickable" src="#icon-location" position="0.42 -0.5 0" height="0.15" width="0.15"
             animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
-          ></a-image>
+          ></a-image> -->
           <a-image visible=false id="profile-button" class="clickable" src="#icon-profile" position="-0.42 -0.5 0" height="0.15" width="0.15"
             animation="property: scale; to: 1.2 1.2 1.2; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
           ></a-image>
