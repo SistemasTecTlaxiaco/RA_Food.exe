@@ -95,7 +95,6 @@
     <div class="slider" style="position: fixed; top: 10px; width: 100%; text-align: center; z-index:1;">
     <div  class="slides">
       <a href="opciones_menu/pizza.html">  <button  class="slide" id="btn1" style="background-image: url('recursos/objetos/pizza.png');">  </button></a>
-      <a href="opciones_menu/hamburguesa.html">  <button  class="slide" id="btn2" style="background-image: url('recursos/objetos/hamburguesa.png');">  </button></a>
       <a href="opciones_menu/sandwich.html">  <button  class="slide" id="btn3" style="background-image: url('recursos/objetos/sandwich.png');">  </button> </a>
       <a href="opciones_menu/helado.html">  <button  class="slide" id="btn4" style="background-image: url('recursos/objetos/helado.png');">  </button></a>
       <a href="opciones_menu/gelatina.html">  <button  class="slide" id="btn5" style="background-image: url('recursos/objetos/gelatina.png');">  </button></a>
