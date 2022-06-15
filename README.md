@@ -22,13 +22,9 @@ Se creará la plataforma con base en las funciones y diseño establecido en el p
 - Navegador: Chrome
 - Dispositivo móvil con cámara y micrófono funcional.
 
-## INSTALACIÓN LOCAL PASOS
-
-
-
 ## DEMO DE LA RA
 
-
+https://youtu.be/UoHzlc6ZZPc 
 
 ## EQUIPO DE DESARROLLO
 
