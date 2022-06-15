@@ -30,10 +30,10 @@ https://youtu.be/UoHzlc6ZZPc
 
 |Integrante | Rol |
 | ------------- | ------------- |
-|Nancy Velasco Santiago  | Programador  |
+|Nancy Velasco Santiago  | Líder del prpyecto y Programador  |
 |Dulce Belem Mendoza Acuña | Programador  |
 |Brenda López Pérez | Diseñador UX  |
-|Claudia | Tester |
+|Claudia Silva Avendaño | Tester |
 
 ## LINKS DE LIBRERIAS UTILIZADAS
 - https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js
@@ -45,4 +45,4 @@ https://youtu.be/UoHzlc6ZZPc
 - https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js
 
 ## LINKS DE PROYECTO FINAL
-
+https://pruera.herokuapp.com/ 
