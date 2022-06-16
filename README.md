@@ -1,6 +1,6 @@
 # PROYECTO DE REALIDAD AUMENTADA
 ## DESCRIPCION DEL PROYECTO
-
+El proyecto esta enfocado para establecimientos de comida rápida. En este caso se trabajó en un modulo que implementa realidad aumentada con objetos 3D diseñados en Blender y uso de librerias, además del uso de reconocimiento de voz, teniendo un menu interactivo como producto final.
 
 ## OBJETIVO GENERAL
 Aportar valor a la plataforma para establecimientos de comida rápida incluyendo realidad aumentada e inteligencia artificial como herramienta para brindar información de interés sobre algunos platillos del menú.
@@ -46,3 +46,4 @@ https://youtu.be/UoHzlc6ZZPc
 
 ## LINKS DE PROYECTO FINAL
 https://pruera.herokuapp.com/ 
+
