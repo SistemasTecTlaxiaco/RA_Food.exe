@@ -1,6 +1,9 @@
 # PROYECTO DE REALIDAD AUMENTADA
 ## DESCRIPCION DEL PROYECTO
 El proyecto esta enfocado para establecimientos de comida rápida. En este caso se trabajó en un modulo que implementa realidad aumentada con objetos 3D diseñados en Blender y uso de librerias, además del uso de reconocimiento de voz, teniendo un menu interactivo como producto final.
+<img src="https://github.com/SistemasTecTlaxiaco/RA_Food.exe/blob/91a0219aa6a37d7f99b0742b4009f8ddf7cef588/recursos/$110.png" alt="Menu interactivo"/>
+
+
 
 ## OBJETIVO GENERAL
 Aportar valor a la plataforma para establecimientos de comida rápida incluyendo realidad aumentada e inteligencia artificial como herramienta para brindar información de interés sobre algunos platillos del menú.
